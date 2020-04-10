@@ -14,8 +14,11 @@ import com.kurnavova.foodapp.adapters.RecipeListAdapter
 import com.kurnavova.foodapp.data.Recipe
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
+import com.kurnavova.foodapp.listeners.RecyclerItemClickListener
 
-class RecipeListFragment : Fragment() {
+
+
+class RecipeListFragment : Fragment(), RecyclerItemClickListener.OnItemClickListener {
 
     private val viewModel: RecipeViewModel by activityViewModels()
 
@@ -33,12 +36,22 @@ class RecipeListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recipeAdapter
         }
+        recipe_recycler_view.addOnItemTouchListener(
+            RecyclerItemClickListener(requireActivity(), recipe_recycler_view, this))
 
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeAdapter.submitList(data)
             Log.d(TAG, "List updated: $data")
         })
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        Log.d(TAG, "tapped on position $position")
+    }
+
+    override fun onItemLongClick(view: View, position: Int) {
+        Log.d(TAG, "long tapped on position $position")
     }
 
     companion object {

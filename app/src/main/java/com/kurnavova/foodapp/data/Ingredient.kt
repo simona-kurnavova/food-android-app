@@ -15,7 +15,7 @@ data class Ingredient(val id: Int,
     }
 
     companion object {
-        private val BASE_URL = "https://spoonacular.com/cdn/ingredients_"
+        private const val BASE_URL = "https://spoonacular.com/cdn/ingredients_"
         private enum class Size(val size: String) {
             SMALL("100x100"),
             MEDIUM("250x250"),

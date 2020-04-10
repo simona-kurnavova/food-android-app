@@ -2,6 +2,7 @@ package com.kurnavova.foodapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.data.Recipe
 import kotlinx.android.synthetic.main.item_recipe.view.*
+import android.util.Log
+
 
 class RecipeListAdapter: ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
 
