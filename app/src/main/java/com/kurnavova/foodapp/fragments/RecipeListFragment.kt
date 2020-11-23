@@ -23,8 +23,11 @@ class RecipeListFragment : Fragment() {
 
     private val viewModel: RecipeViewModel by activityViewModels()
 
-    private val recipeListAdapter by lazy { RecipeListAdapter(requireContext(), onItemClicked) }
+    private val recipeListAdapter by lazy { RecipeListAdapter(onItemClicked) }
 
+    /**
+     * On recipe clicked.
+     */
     private val onItemClicked: (Int) -> Unit = { position ->
         Log.d(TAG, "tapped on position $position")
         val intent = Intent(activity, RecipeDetailActivity::class.java).apply {
@@ -50,8 +53,10 @@ class RecipeListFragment : Fragment() {
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
+            recipeListAdapter.data = data
             Log.d(TAG, "Recipe list updated: $data")
         })
+
     }
 
     companion object {

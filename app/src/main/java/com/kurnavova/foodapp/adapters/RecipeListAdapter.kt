@@ -12,11 +12,11 @@ import com.kurnavova.foodapp.data.Recipe
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
 
-class RecipeListAdapter(context: Context, listener: (Int) -> Unit) :
+class RecipeListAdapter(listener: (Int) -> Unit) :
     ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
 
     private val clickCallback: (position: Int) -> Unit = {
-        position -> listener(position) // TODO: replace
+        position -> listener(getItem(position).id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
