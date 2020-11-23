@@ -1,5 +1,6 @@
 package com.kurnavova.foodapp.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +12,27 @@ import com.kurnavova.foodapp.data.Recipe
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
 
-class RecipeListAdapter: ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
+class RecipeListAdapter(context: Context, listener: (Int) -> Unit) :
+    ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
+
+    private val clickCallback: (position: Int) -> Unit = {
+        position -> listener(position) // TODO: replace
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_recipe, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_recipe, parent, false), clickCallback)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, clickCallback: (position: Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener { clickCallback(adapterPosition) }
+        }
 
         fun bind(recipe: Recipe) {
             itemView.title.text = recipe.title

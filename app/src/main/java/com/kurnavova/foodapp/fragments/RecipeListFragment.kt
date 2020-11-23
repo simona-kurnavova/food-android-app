@@ -17,12 +17,21 @@ import com.kurnavova.foodapp.adapters.RecipeListAdapter
 import com.kurnavova.foodapp.data.Recipe
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
-import com.kurnavova.foodapp.listeners.RecyclerItemClickListener
 
 
-class RecipeListFragment : Fragment(), RecyclerItemClickListener.OnItemClickListener {
+class RecipeListFragment : Fragment() {
 
     private val viewModel: RecipeViewModel by activityViewModels()
+
+    private val recipeListAdapter by lazy { RecipeListAdapter(requireContext(), onItemClicked) }
+
+    private val onItemClicked: (Int) -> Unit = { position ->
+        Log.d(TAG, "tapped on position $position")
+        val intent = Intent(activity, RecipeDetailActivity::class.java).apply {
+            putExtra(EXTRA_RECIPE_ID, position)
+        }
+        startActivity(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,36 +41,20 @@ class RecipeListFragment : Fragment(), RecyclerItemClickListener.OnItemClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        // setup recycler view
-        val recipeAdapter = RecipeListAdapter()
+        // Setup recycler view
         with(recipe_recycler_view) {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = recipeAdapter
+            adapter = recipeListAdapter
         }
-        recipe_recycler_view.addOnItemTouchListener(
-            RecyclerItemClickListener(requireActivity(), recipe_recycler_view, this))
 
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
-            recipeAdapter.submitList(data)
-            Log.d(TAG, "List updated: $data")
+            recipeListAdapter.submitList(data)
+            Log.d(TAG, "Recipe list updated: $data")
         })
     }
 
-    override fun onItemClick(view: View, position: Int) {
-        Log.d(TAG, "tapped on position $position")
-        //view.recipe_name.text
-        val intent = Intent(view.context, RecipeDetailActivity::class.java).apply {
-            putExtra(EXTRA_RECIPE_ID, position)
-        }
-        startActivity(intent)
-    }
-
-    override fun onItemLongClick(view: View, position: Int) {
-        Log.d(TAG, "long tapped on position $position")
-    }
-
     companion object {
-        private const val TAG = "RECIPES"
+        private const val TAG = "RECIPE_LIST"
     }
 }
