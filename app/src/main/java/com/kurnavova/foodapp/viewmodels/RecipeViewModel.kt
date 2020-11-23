@@ -18,7 +18,31 @@ class RecipeViewModel : ViewModel() {
     private fun loadRecipes(): List<Recipe> {
         // TODO: API call
         return listOf(
-            Recipe(0, "something", 10, 2, listOf(
+            Recipe(9, "something", 10, 2, listOf(
+                Ingredient(0, "x", "imgx.png"),
+                Ingredient(1, "y", "imgy.png")
+            )),
+            Recipe(10, "something", 10, 3, listOf(
+                Ingredient(1, "y", "imgy.png"),
+                Ingredient(3, "z", "imgz.png")
+            )),
+            Recipe(25, "something else", 50, 2, listOf(
+                Ingredient(1, "y", "imgy.png"),
+                Ingredient(3, "z", "imgz.png")
+            )),
+            Recipe(97, "something", 10, 2, listOf(
+                Ingredient(0, "x", "imgx.png"),
+                Ingredient(1, "y", "imgy.png")
+            )),
+            Recipe(11, "something", 10, 3, listOf(
+                Ingredient(1, "y", "imgy.png"),
+                Ingredient(3, "z", "imgz.png")
+            )),
+            Recipe(95, "something else", 50, 2, listOf(
+                Ingredient(1, "y", "imgy.png"),
+                Ingredient(3, "z", "imgz.png")
+            )),
+            Recipe(89, "something", 10, 2, listOf(
                 Ingredient(0, "x", "imgx.png"),
                 Ingredient(1, "y", "imgy.png")
             )),
@@ -26,7 +50,7 @@ class RecipeViewModel : ViewModel() {
                 Ingredient(1, "y", "imgy.png"),
                 Ingredient(3, "z", "imgz.png")
             )),
-            Recipe(2, "something else", 50, 2, listOf(
+            Recipe(5, "something else", 50, 2, listOf(
                 Ingredient(1, "y", "imgy.png"),
                 Ingredient(3, "z", "imgz.png")
             ))
