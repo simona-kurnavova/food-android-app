@@ -1,6 +1,5 @@
 package com.kurnavova.foodapp.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,14 +40,8 @@ class RecipeListAdapter(listener: (Int) -> Unit) :
 
     companion object {
         private class RecipeDiffCallback : DiffUtil.ItemCallback<Recipe>() {
-
-            override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
-                return oldItem == newItem
-            }
+            override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean = oldItem == newItem
         }
     }
 }

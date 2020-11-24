@@ -1,11 +1,14 @@
 package com.kurnavova.foodapp.fragments
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -15,16 +18,12 @@ import com.kurnavova.foodapp.activities.RecipeDetailActivity
 import com.kurnavova.foodapp.activities.RecipeDetailActivity.Companion.EXTRA_RECIPE_ID
 import com.kurnavova.foodapp.adapters.RecipeListAdapter
 import com.kurnavova.foodapp.data.Recipe
-import com.kurnavova.foodapp.utils.RecipeServiceHandler
-import com.kurnavova.foodapp.viewmodels.RecipeViewModel
+import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RecipeListFragment : Fragment() {
 
-    private val viewModel: RecipeViewModel by activityViewModels()
+    private val viewModel: RecipeListViewModel by activityViewModels()
 
     private val recipeListAdapter by lazy { RecipeListAdapter(onItemClicked) }
 
@@ -52,11 +51,13 @@ class RecipeListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recipeListAdapter
         }
+        empty_list_text.visibility = VISIBLE
 
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
             Log.d(TAG, "Recipe list updated: $data")
+            empty_list_text.visibility = if (data.isNullOrEmpty()) VISIBLE else GONE
         })
 
     }

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kurnavova.foodapp.data.Recipe
-import com.kurnavova.foodapp.data.RecipeList
 import com.kurnavova.foodapp.utils.RecipeServiceHandler
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,26 +13,24 @@ class RecipeViewModel : ViewModel() {
 
     private val recipeServiceHandler by lazy { RecipeServiceHandler() }
 
-    private val recipes: MutableLiveData<List<Recipe>> by lazy {
-        MutableLiveData<List<Recipe>>().apply {
-            loadRecipes()
+    val recipe: MutableLiveData<Recipe> by lazy {
+        MutableLiveData<Recipe>().apply {
+            loadRecipe()
         }
     }
 
-    init {
-        loadRecipes()
-    }
+    var id: Int? = null
 
-    fun getAllRecipes(): MutableLiveData<List<Recipe>> = recipes
+    fun getMyRecipe(): MutableLiveData<Recipe> = recipe
 
-    private fun loadRecipes() {
-        recipeServiceHandler.getRecipes().enqueue(object : Callback<RecipeList> {
-            override fun onResponse(call: Call<RecipeList>, response: Response<RecipeList>) {
+    private fun loadRecipe() {
+        recipeServiceHandler.getRecipe(id ?: return).enqueue(object : Callback<Recipe> {
+            override fun onResponse(call: Call<Recipe>, response: Response<Recipe>) {
                 Log.d(TAG, "body: " + response.body().toString())
-                recipes.value = response.body()?.recipes as MutableList<Recipe>
+                recipe.value = response.body() as Recipe
             }
 
-            override fun onFailure(call: Call<RecipeList>, t: Throwable) {
+            override fun onFailure(call: Call<Recipe>, t: Throwable) {
                 Log.d(TAG, "error: " + t.message.toString())
             }
         })
