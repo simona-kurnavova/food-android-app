@@ -1,10 +1,12 @@
 package com.kurnavova.foodapp.data
 
-data class Recipe(val id: Int,
-                  val title: String,
-                  val readyInMinutes: Int?,
-                  val servings: Int?,
-                  val ingredients: List<Ingredient>?) {
+import com.google.gson.annotations.SerializedName
+
+data class Recipe(@SerializedName("id") val id: Int,
+                  @SerializedName("title") val title: String,
+                  @SerializedName("readyInMinutes") val readyInMinutes: Int?,
+                  @SerializedName("servings") val servings: Int?,
+                  @SerializedName("extendedIngredients") val ingredients: List<Ingredient>) {
 
     val smallImageUrl: String get() = getImageUrl(Size.SMALL)
 

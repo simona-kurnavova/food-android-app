@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:contentDescription="@null"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_dish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Hello recipefdhfdhdfhghdghfg gfdjgdfhdgfhgd dgfhjgdfhdgfhgdhfdh"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/food_image"

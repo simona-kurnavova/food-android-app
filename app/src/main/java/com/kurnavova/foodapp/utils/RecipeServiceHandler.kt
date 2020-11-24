@@ -1,0 +1,27 @@
+package com.kurnavova.foodapp.utils
+
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
+
+class RecipeServiceHandler {
+
+    private val recipeServiceApi: RecipeServiceAPI = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(OkHttpClient.Builder().build())
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+        .build()
+        .create(RecipeServiceAPI::class.java)
+
+    fun getRecipes() = recipeServiceApi.getRecipeList(API_KEY, "italian")
+
+    fun getRecipe(id: Int) = recipeServiceApi.getRecipe(id.toString(), API_KEY)
+
+    companion object {
+        const val BASE_URL = "https://api.spoonacular.com/"
+        const val API_KEY = "a1785ee75385455dbfae0ae10841d2f4"
+    }
+}

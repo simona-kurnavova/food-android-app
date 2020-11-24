@@ -42,6 +42,12 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.fragment:fragment:1.2.4" // fragment container
     implementation "androidx.fragment:fragment-ktx:1.2.4" // by activityViewModels()
+    implementation "androidx.cardview:cardview:1.0.0" // cardview
+
+    // API communication
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT2_VERSION}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT2_VERSION}"
+    implementation "com.squareup.retrofit2:converter-scalars:${RETROFIT2_VERSION}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -15,9 +15,12 @@ import com.kurnavova.foodapp.activities.RecipeDetailActivity
 import com.kurnavova.foodapp.activities.RecipeDetailActivity.Companion.EXTRA_RECIPE_ID
 import com.kurnavova.foodapp.adapters.RecipeListAdapter
 import com.kurnavova.foodapp.data.Recipe
+import com.kurnavova.foodapp.utils.RecipeServiceHandler
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecipeListFragment : Fragment() {
 
@@ -53,7 +56,6 @@ class RecipeListFragment : Fragment() {
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
-            recipeListAdapter.data = data
             Log.d(TAG, "Recipe list updated: $data")
         })
 

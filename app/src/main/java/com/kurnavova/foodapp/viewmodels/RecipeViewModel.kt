@@ -1,59 +1,44 @@
 package com.kurnavova.foodapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kurnavova.foodapp.data.Ingredient
 import com.kurnavova.foodapp.data.Recipe
+import com.kurnavova.foodapp.data.RecipeList
+import com.kurnavova.foodapp.utils.RecipeServiceHandler
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecipeViewModel : ViewModel() {
 
+    private val recipeServiceHandler by lazy { RecipeServiceHandler() }
+
     private val recipes: MutableLiveData<List<Recipe>> by lazy {
         MutableLiveData<List<Recipe>>().apply {
-            value = loadRecipes()
+            loadRecipes()
         }
+    }
+
+    init {
+        loadRecipes()
     }
 
     fun getAllRecipes(): MutableLiveData<List<Recipe>> = recipes
 
-    private fun loadRecipes(): List<Recipe> {
-        // TODO: API call
-        return listOf(
-            Recipe(9, "something", 10, 2, listOf(
-                Ingredient(0, "x", "imgx.png"),
-                Ingredient(1, "y", "imgy.png")
-            )),
-            Recipe(10, "something", 10, 3, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            )),
-            Recipe(25, "something else", 50, 2, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            )),
-            Recipe(97, "something", 10, 2, listOf(
-                Ingredient(0, "x", "imgx.png"),
-                Ingredient(1, "y", "imgy.png")
-            )),
-            Recipe(11, "something", 10, 3, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            )),
-            Recipe(95, "something else", 50, 2, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            )),
-            Recipe(89, "something", 10, 2, listOf(
-                Ingredient(0, "x", "imgx.png"),
-                Ingredient(1, "y", "imgy.png")
-            )),
-            Recipe(1, "something", 10, 3, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            )),
-            Recipe(5, "something else", 50, 2, listOf(
-                Ingredient(1, "y", "imgy.png"),
-                Ingredient(3, "z", "imgz.png")
-            ))
-        )
+    private fun loadRecipes() {
+        recipeServiceHandler.getRecipes().enqueue(object : Callback<RecipeList> {
+            override fun onResponse(call: Call<RecipeList>, response: Response<RecipeList>) {
+                Log.d(TAG, "body: " + response.body().toString())
+                recipes.value = response.body()?.recipes as MutableList<Recipe>
+            }
+
+            override fun onFailure(call: Call<RecipeList>, t: Throwable) {
+                Log.d(TAG, "error: " + t.message.toString())
+            }
+        })
+    }
+    companion object {
+        const val TAG = "RecipeViewModel"
     }
 }
