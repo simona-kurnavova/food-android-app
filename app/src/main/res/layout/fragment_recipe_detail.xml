@@ -25,39 +25,27 @@
                 android:id="@+id/recipe_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                card_view:layout_constraintEnd_toStartOf="@id/layout_time"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                card_view:layout_constraintEnd_toStartOf="@id/recipe_time"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/layout_time"
+            <TextView
+                android:id="@+id/recipe_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/ic_clock" />
-
-                <TextView
-                    android:id="@+id/recipe_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/darker_gray" />
-
-            </LinearLayout>
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:textColor="@android:color/darker_gray"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                card_view:drawableLeftCompat="@drawable/ic_clock"
+                android:drawablePadding="5dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/recipe_text"
+            android:textAppearance="?attr/textAppearanceBody2"
             android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

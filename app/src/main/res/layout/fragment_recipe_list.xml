@@ -11,6 +11,8 @@
         android:scrollbars="vertical" />
 
     <LinearLayout
+        android:id="@+id/empty_list"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,12 +25,10 @@
             android:src="@drawable/ic_bowl"/>
 
         <TextView
-            android:id="@+id/empty_list_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:visibility="gone"
             android:text="@string/empty_list_message" />
 
     </LinearLayout>

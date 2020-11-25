@@ -1,7 +1,6 @@
 package com.kurnavova.foodapp.fragments
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,7 +16,7 @@ import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.activities.RecipeDetailActivity
 import com.kurnavova.foodapp.activities.RecipeDetailActivity.Companion.EXTRA_RECIPE_ID
 import com.kurnavova.foodapp.adapters.RecipeListAdapter
-import com.kurnavova.foodapp.data.Recipe
+import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
@@ -30,7 +29,7 @@ class RecipeListFragment : Fragment() {
     /**
      * On recipe clicked.
      */
-    private val onItemClicked: (Int) -> Unit = { position ->
+    private val onItemClicked: (String) -> Unit = { position ->
         Log.d(TAG, "tapped on position $position")
         val intent = Intent(activity, RecipeDetailActivity::class.java).apply {
             putExtra(EXTRA_RECIPE_ID, position)
@@ -51,13 +50,13 @@ class RecipeListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recipeListAdapter
         }
-        empty_list_text.visibility = VISIBLE
+
+        empty_list.visibility = VISIBLE
 
         // Observer for list of recipes
         viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
-            Log.d(TAG, "Recipe list updated: $data")
-            empty_list_text.visibility = if (data.isNullOrEmpty()) VISIBLE else GONE
+            empty_list.visibility = if (data.isNullOrEmpty()) VISIBLE else GONE
         })
 
     }

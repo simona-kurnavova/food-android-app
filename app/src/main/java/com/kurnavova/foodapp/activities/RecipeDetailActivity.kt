@@ -16,11 +16,11 @@ class RecipeDetailActivity : AppCompatActivity()  {
         val extras: Bundle? = intent.extras
         val bundle = Bundle()
         if (extras != null) {
-            bundle.putInt(EXTRA_RECIPE_ID, extras.getInt(EXTRA_RECIPE_ID))
+            bundle.putString(EXTRA_RECIPE_ID, extras.getString(EXTRA_RECIPE_ID))
         }
+
         val fragment = RecipeDetailFragment()
         fragment.arguments = bundle
-
         supportFragmentManager.beginTransaction()
             .add(R.id.detail_fragment, fragment)
             .commit()

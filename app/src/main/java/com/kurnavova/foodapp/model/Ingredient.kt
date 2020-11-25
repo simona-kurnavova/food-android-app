@@ -1,10 +1,8 @@
-package com.kurnavova.foodapp.data
+package com.kurnavova.foodapp.model
 
-import com.google.gson.annotations.SerializedName
-
-data class Ingredient(@SerializedName("id") val id: Int,
-                      @SerializedName("name") val name: String,
-                      @SerializedName("image") val image: String) {
+data class Ingredient(val id: Int,
+                      val name: String,
+                      val image: String) {
 
     val smallImageUrl: String get() = getImageUrl(Size.SMALL)
 

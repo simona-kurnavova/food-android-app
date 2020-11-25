@@ -1,4 +1,4 @@
-package com.kurnavova.foodapp.data
+package com.kurnavova.foodapp.model
 
 import com.google.gson.annotations.SerializedName
 

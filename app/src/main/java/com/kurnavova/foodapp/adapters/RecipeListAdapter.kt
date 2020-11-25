@@ -6,16 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kurnavova.foodapp.R
-import com.kurnavova.foodapp.data.Recipe
+import com.kurnavova.foodapp.model.Recipe
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
-
-class RecipeListAdapter(listener: (Int) -> Unit) :
+class RecipeListAdapter(listener: (String) -> Unit) :
     ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
 
-    private val clickCallback: (position: Int) -> Unit = {
-        position -> listener(getItem(position).id)
+    private val clickCallback: (position: Int) -> Unit = { position -> listener(getItem(position).id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +34,13 @@ class RecipeListAdapter(listener: (Int) -> Unit) :
 
         fun bind(recipe: Recipe) {
             itemView.title.text = recipe.title
+
+            if (recipe.image != null) {
+                Glide.with(itemView.context)
+                    .load(recipe.image)
+                    .into(itemView.image)
+
+            }
         }
     }
 

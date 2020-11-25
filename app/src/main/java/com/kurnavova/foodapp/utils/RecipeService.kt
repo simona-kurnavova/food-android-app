@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-class RecipeServiceHandler {
+class RecipeService {
 
     private val recipeServiceApi: RecipeServiceAPI = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -18,7 +18,7 @@ class RecipeServiceHandler {
 
     fun getRecipes() = recipeServiceApi.getRecipeList(API_KEY, "italian")
 
-    fun getRecipe(id: Int) = recipeServiceApi.getRecipe(id.toString(), API_KEY)
+    fun getRecipe(id: String) = recipeServiceApi.getRecipe(id, API_KEY)
 
     companion object {
         const val BASE_URL = "https://api.spoonacular.com/"

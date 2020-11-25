@@ -1,11 +1,12 @@
 package com.kurnavova.foodapp.utils
 
-import com.kurnavova.foodapp.data.Recipe
-import com.kurnavova.foodapp.data.RecipeList
+import com.kurnavova.foodapp.model.Recipe
+import com.kurnavova.foodapp.model.RecipeList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface RecipeServiceAPI {
 
@@ -16,7 +17,13 @@ interface RecipeServiceAPI {
     fun getRandomRecipe(@Query("apiKey") apiKey: String): Call<Recipe>
 
     @GET("/recipes/complexSearch")
-    fun searchRecipes(@Query("apiKey") apiKey: String, @Query("query") query: String): Call<RecipeList>
+    fun searchRecipes(@Query("apiKey") apiKey: String, @Query("query") query: String,
+                      @Query("number") limit: Int = 10): Call<RecipeList>
+
+
+    @GET("/recipes/complexSearch")
+    fun searchRecipes(@Query("apiKey") apiKey: String, @QueryMap queryMap: Map<String, MutableList<String>>,
+                     @Query("number") limit: Int = 10): Call<RecipeList>
 
     // cuisine, includeIngredients, excludeIngredients, maxReadyTime, type, number (of results), offset (The number
     // of results to
