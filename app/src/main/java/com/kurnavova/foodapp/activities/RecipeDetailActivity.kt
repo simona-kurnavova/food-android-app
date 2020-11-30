@@ -1,7 +1,6 @@
 package com.kurnavova.foodapp.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.fragments.RecipeDetailFragment
@@ -10,7 +9,6 @@ class RecipeDetailActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("DETAIL_FRAGMENT_ACT", "onCreate")
         setContentView(R.layout.activity_recipe_detail)
 
         val extras: Bundle? = intent.extras

@@ -1,5 +1,6 @@
 package com.kurnavova.foodapp.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,10 +24,10 @@ class RecipeDetailFragment: Fragment() {
         inflater.inflate(R.layout.fragment_recipe_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.id = arguments?.getString(EXTRA_RECIPE_ID)
+        viewModel.id.value = arguments?.getString(EXTRA_RECIPE_ID)
 
         // Observer for recipe
-        viewModel.getMyRecipe()?.observe(viewLifecycleOwner, Observer<Recipe>{ data ->
+        viewModel.recipe.observe(viewLifecycleOwner, Observer<Recipe>{ data ->
             Log.d(TAG, "Detail updated: $data")
 
             recipe_name.text = data.title

@@ -30,7 +30,6 @@ class RecipeListFragment : Fragment() {
      * On recipe clicked.
      */
     private val onItemClicked: (String) -> Unit = { position ->
-        Log.d(TAG, "tapped on position $position")
         val intent = Intent(activity, RecipeDetailActivity::class.java).apply {
             putExtra(EXTRA_RECIPE_ID, position)
         }
@@ -44,17 +43,16 @@ class RecipeListFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_recipe_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         // Setup recycler view
         with(recipe_recycler_view) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recipeListAdapter
         }
 
-        empty_list.visibility = VISIBLE
+        //empty_list.visibility = VISIBLE
 
         // Observer for list of recipes
-        viewModel.getAllRecipes().observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
+        viewModel.recipes.observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
             empty_list.visibility = if (data.isNullOrEmpty()) VISIBLE else GONE
         })

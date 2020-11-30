@@ -1,16 +1,18 @@
 package com.kurnavova.foodapp.viewmodels
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.kurnavova.foodapp.database.RecipeDatabase
 import com.kurnavova.foodapp.model.Recipe
-import com.kurnavova.foodapp.utils.RecipeRepository
+import com.kurnavova.foodapp.database.RecipeRepository
 
 class RecipeListViewModel : ViewModel() {
 
-    private val recipeRepository by lazy { RecipeRepository() }
-    private val recipes by lazy { loadRecipes() }
+    private val recipeRepository by lazy { RecipeRepository(RecipeDatabase.provideRecipeDAO()) }
 
-    fun getAllRecipes() = recipes
+    val recipes: LiveData<List<Recipe>> = liveData {
+        emit(recipeRepository.getRecipeList())
+    }
 
-    private fun loadRecipes() = recipeRepository.getRecipeList() as MutableLiveData<List<Recipe>>
 }

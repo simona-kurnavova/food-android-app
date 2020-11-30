@@ -1,6 +1,7 @@
 package com.kurnavova.foodapp.utils
 
 import com.google.gson.GsonBuilder
+import com.kurnavova.foodapp.database.RecipeDao
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,17 +9,17 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class RecipeService {
 
-    private val recipeServiceApi: RecipeServiceAPI = Retrofit.Builder()
+    private val recipeServiceApi: RecipeDao = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(OkHttpClient.Builder().build())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build()
-        .create(RecipeServiceAPI::class.java)
+        .create(RecipeDao::class.java)
 
-    fun getRecipes() = recipeServiceApi.getRecipeList(API_KEY, "italian")
+    //fun getRecipes() = recipeServiceApi.getRecipeList(API_KEY, "italian")
 
-    fun getRecipe(id: String) = recipeServiceApi.getRecipe(id, API_KEY)
+    //fun getRecipe(id: String) = recipeServiceApi.getRecipe(id, API_KEY)
 
     companion object {
         const val BASE_URL = "https://api.spoonacular.com/"
