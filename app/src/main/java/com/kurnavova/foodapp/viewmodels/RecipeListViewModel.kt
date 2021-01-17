@@ -14,5 +14,4 @@ class RecipeListViewModel : ViewModel() {
     val recipes: LiveData<List<Recipe>> = liveData {
         emit(recipeRepository.getRecipeList())
     }
-
 }

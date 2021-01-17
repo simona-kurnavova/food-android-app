@@ -18,6 +18,7 @@ interface RecipeDao {
     suspend fun getRecipeList(@Query("cuisine") cuisine: String, @Query("apiKey") apiKey: String = ApiClient.API_KEY):
             RecipeList
 
+
     @GET("/recipes/complexSearch")
     suspend fun searchRecipes(@Query("apiKey") apiKey: String, @Query("query") query: String,
                       @Query("number") limit: Int = 10): RecipeList
