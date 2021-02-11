@@ -11,11 +11,13 @@ import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.model.Recipe
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
+/**
+ * Adapter for list of recipes.
+ */
 class RecipeListAdapter(listener: (String) -> Unit) :
     ListAdapter<Recipe, RecipeListAdapter.ViewHolder>(RecipeDiffCallback()) {
 
-    private val clickCallback: (position: Int) -> Unit = { position -> listener(getItem(position).id)
-    }
+    private val clickCallback: (position: Int) -> Unit = { position -> listener(getItem(position).id) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,7 +41,6 @@ class RecipeListAdapter(listener: (String) -> Unit) :
                 Glide.with(itemView.context)
                     .load(recipe.image)
                     .into(itemView.image)
-
             }
         }
     }

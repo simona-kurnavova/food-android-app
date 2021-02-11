@@ -1,17 +1,63 @@
 <resources>
-    <string name="app_name">Recipe app</string>
+    <!-- Name of an app -->
+    <string name="app_name">Cook and shit</string>
 
-    <!-- Message when there is empty list of recipes (no connection or nothing to show) -->
+    <!-- Actions -->
+    <!-- Filter action. -->
+    <string name="action_filter">Filter</string>
+    <!-- Search action. -->
+    <string name="action_search">Search</string>
+
+    <!-- Search label. -->
+    <string name="search_label">Search</string>
+    <!-- Search hint. -->
+    <string name="search_hint">Search</string>
+
+    <!-- Main screen -->
+    <!-- Title of random recipe card. -->
+    <string name="random_recipe_title">Recipe of the day</string>
+    <!-- Title of breakfast icon. -->
+    <string name="meal_breakfast">Breakfast</string>
+    <!-- Title of main meal icon. -->
+    <string name="meal_main_meal">Main meal</string>
+    <!-- Title of beverage icon. -->
+    <string name="meal_beverage">Beverage</string>
+    <!-- Title of snack icon. -->
+    <string name="meal_snack">Snack</string>
+
+    <!-- Recipe list -->
+    <!-- Message when there is empty list of recipes (no connection or nothing to show). -->
     <string name="empty_list_message">Nothing to show, sorry!</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <!-- Recipe detail -->
+    <!-- Title of summary card in recipe detail. -->
+    <string name="detail_title_summary">Summary</string>
+    <!-- Title of ingredients card in recipe detail. -->
+    <string name="detail_title_ingredients">Ingredients</string>
+
+    <!-- Filter -->
+    <!-- Title of meal type picker dialog and button. -->
+    <string name="meal_type">Meal type</string>
+    <!-- Title of diet picker dialog and button. -->
+    <string name="diet">Diet</string>
+    <!-- Title of cuisine picker dialog and button. -->
+    <string name="cuisine">Cuisine</string>
+    <!-- Title of submit filter button. -->
+    <string name="filter_button">Filter</string>
+    <!-- Slider default value in minutes. -->
+    <string name="slider_time_default_value">120</string>
+    <!-- Slider minimum value in minutes. -->
+    <string name="slider_time_value_from">2</string>
+    <!-- Slider maximum value in minutes. -->
+    <string name="slider_time_value_to">120</string>
+    <!-- Slider step size in minutes. -->
+    <string name="slider_time_value_step">1</string>
+    <!-- Label of the slider. %s is a number currently picked. -->
+    <string name="slider_label">Maximum prepare time: %s minutes</string>
+    <!-- Argument of slider label when no value is picked. -->
+    <string name="slider_argument_any">Any</string>
+
+    <!-- Activity labels -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_detail">ScrollingActivity</string>
 </resources>

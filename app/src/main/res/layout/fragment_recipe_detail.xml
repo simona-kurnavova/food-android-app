@@ -1,54 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="@dimen/margin_around_item"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:theme="@style/CursiveFontTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/recipe_image"
-            android:layout_width="match_parent"
-            android:layout_height="280dp" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/recipe_chips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipe_name">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.chip.Chip
+            android:id="@+id/recipe_time_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:drawablePadding="@dimen/chip_drawable_padding"
+            android:textColor="@color/colorOnPrimary"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipIcon="@drawable/ic_clock"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/recipe_servings_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:drawablePadding="@dimen/chip_drawable_padding"
+            android:textColor="@color/colorOnPrimary"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipIcon="@drawable/ic_dish"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recipe_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/summary_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_margin_detail"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintTop_toBottomOf="@id/recipe_chips">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp">
+            android:layout_margin="@dimen/layout_margin"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/recipe_name"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                card_view:layout_constraintEnd_toStartOf="@id/recipe_time"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/detail_title_summary"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:theme="@style/CursiveFontTheme" />
 
             <TextView
-                android:id="@+id/recipe_time"
-                android:layout_width="wrap_content"
+                android:id="@+id/recipe_summary"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                android:textColor="@android:color/darker_gray"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                card_view:drawableLeftCompat="@drawable/ic_clock"
-                android:drawablePadding="5dp"/>
+                android:layout_marginBottom="@dimen/margin_around_item" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/recipe_text"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:layout_margin="15dp"
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_margin_detail"
+        android:layout_marginTop="@dimen/layout_margin"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintTop_toBottomOf="@id/summary_card">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin"
+            android:orientation="vertical">
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_title_ingredients"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/colorPrimary"
+                android:theme="@style/CursiveFontTheme" />
+
+            <LinearLayout
+                android:id="@+id/linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

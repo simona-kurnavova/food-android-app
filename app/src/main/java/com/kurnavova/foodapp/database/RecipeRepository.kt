@@ -1,15 +1,17 @@
 package com.kurnavova.foodapp.database
 
 import com.kurnavova.foodapp.model.Recipe
+import com.kurnavova.foodapp.utils.RecipeFilterQuery
 import javax.inject.Inject
 
 class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao) {
 
-    suspend fun getRecipe(id: String): Recipe = recipeDao.getRecipe(id)
+    suspend fun getRecipe(id: String): Recipe =
+        recipeDao.getRecipe(id)
 
-    suspend fun getRecipeList(): List<Recipe> = recipeDao.getRecipeList("italian").recipes
+    suspend fun searchRecipes(filterQuery: RecipeFilterQuery) : List<Recipe> =
+        recipeDao.searchRecipes(filterQuery.getQuery()).recipes
 
-    companion object {
-        const val TAG = "RecipeRepository"
-    }
+    suspend fun getRandomRecipes(): List<Recipe> =
+        recipeDao.getRandomRecipe().recipes
 }

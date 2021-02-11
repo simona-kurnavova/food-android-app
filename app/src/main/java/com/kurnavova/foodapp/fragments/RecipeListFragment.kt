@@ -2,23 +2,21 @@ package com.kurnavova.foodapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.kurnavova.foodapp.R
-import com.kurnavova.foodapp.activities.RecipeDetailActivity
-import com.kurnavova.foodapp.activities.RecipeDetailActivity.Companion.EXTRA_RECIPE_ID
+import com.kurnavova.foodapp.activities.DetailActivity
+import com.kurnavova.foodapp.activities.DetailActivity.Companion.EXTRA_RECIPE_ID
 import com.kurnavova.foodapp.adapters.RecipeListAdapter
 import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
+import kotlinx.android.synthetic.main.fragment_search_result.*
+import kotlinx.android.synthetic.main.fragment_search_result.view.*
 
 class RecipeListFragment : Fragment() {
 
@@ -30,36 +28,24 @@ class RecipeListFragment : Fragment() {
      * On recipe clicked.
      */
     private val onItemClicked: (String) -> Unit = { position ->
-        val intent = Intent(activity, RecipeDetailActivity::class.java).apply {
+        val intent = Intent(activity, DetailActivity::class.java).apply {
             putExtra(EXTRA_RECIPE_ID, position)
         }
         startActivity(intent)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_recipe_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = 
+        inflater.inflate(R.layout.fragment_search_result, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Setup recycler view
-        with(recipe_recycler_view) {
-            layoutManager = LinearLayoutManager(requireContext())
+        with(view.search_recycler_view) {
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = recipeListAdapter
         }
-
-        //empty_list.visibility = VISIBLE
-
-        // Observer for list of recipes
         viewModel.recipes.observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
             recipeListAdapter.submitList(data)
-            empty_list.visibility = if (data.isNullOrEmpty()) VISIBLE else GONE
+            empty_list.visibility = if (data.isNullOrEmpty()) View.VISIBLE else View.GONE
         })
-
-    }
-
-    companion object {
-        private const val TAG = "RECIPE_LIST"
+        super.onViewCreated(view, savedInstanceState)
     }
 }
