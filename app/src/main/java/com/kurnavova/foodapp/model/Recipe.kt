@@ -9,7 +9,6 @@ data class Recipe(val id: String,
                   val summary: String?,
                   val instructions: String?,
                   val image: String?,
-                  val analyzedInstructions: List<AnalysedInstructions>?,
                   @SerializedName("extendedIngredients") val ingredients: List<Ingredient>,
                   val dishTypes: List<String>,
                   val diets: List<String>)
