@@ -18,7 +18,7 @@ import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.DIET
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_detail.*
-import kotlinx.android.synthetic.main.fragment_recipe_detail.linear_layout
+import kotlinx.android.synthetic.main.fragment_recipe_detail.ingredients_layout
 
 class RecipeDetailFragment: Fragment() {
 
@@ -33,8 +33,8 @@ class RecipeDetailFragment: Fragment() {
             recipe_name.text = data.title
 
             //recipe_chips
-            recipe_time_chip.text = "${data.readyInMinutes} min"
-            recipe_servings_chip.text = "${data.servings.toString()} servings"
+            recipe_time_chip.text = getString(R.string.detail_minutes, data.readyInMinutes.toString())
+            recipe_servings_chip.text = getString(R.string.detail_servings, data.servings.toString())
 
             data.diets.forEach { recipe_chips.addView(
                 Chip(requireContext()).apply {
@@ -49,18 +49,19 @@ class RecipeDetailFragment: Fragment() {
 
             // Strip html tags - some recipes are html, some plain text, this is easiest option
             recipe_summary.text = HtmlCompat.fromHtml(data.summary.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-                .toString()
+            recipe_instructions.text = HtmlCompat.fromHtml(data.instructions.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-            data?.ingredients?.forEach {
+            data.ingredients.forEach {
                 val textView = TextView(requireContext()).apply {
                     text = it.originalString
+                    setTextIsSelectable(true)
                 }
-                linear_layout.addView(textView)
+                ingredients_layout.addView(textView)
             }
         })
     }
 
     companion object {
-        const val TAG = "RECIPE_DETAIL"
+        const val TAG = "Detail"
     }
 }

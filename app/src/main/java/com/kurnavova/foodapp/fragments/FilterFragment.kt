@@ -1,7 +1,6 @@
 package com.kurnavova.foodapp.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +21,16 @@ import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.mealTypes
 import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
 import kotlinx.android.synthetic.main.fragment_filter.*
 
+/**
+ * Fragment for filter - allows to choose parameters according to which app filters recipe results.
+ */
 class FilterFragment : Fragment() {
 
     private val viewModel: RecipeListViewModel by activityViewModels()
 
+    /**
+     * Temporarily stores filter parameters until user taps "Filter".
+     */
     private val recipeFilterQuery = RecipeFilterQuery()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = 
@@ -34,52 +39,55 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // setup filter according to already set/default values
+        // Setup filter according to already set/default values from viewmodel recipeFilterQuery instance
         recipeFilterQuery.addQueries(viewModel.filterQuery.value?.map)
 
         updateChips()
-
         setUpDialog(meal_type_button, R.string.meal_type, mealTypes, TYPE)
         setUpDialog(diet_button, R.string.diet, diets, DIET)
         setUpDialog(cuisine_button, R.string.cuisine, cuisines, CUISINE)
 
         // Slider config
-        slider.addOnChangeListener { slider, value, fromUser ->
+        slider.addOnChangeListener { _, value, _ ->
             recipeFilterQuery.addQueryOrReplace(READY_TIME, value.toInt().toString())
-            if (value.toInt() == 0) {
-                recipeFilterQuery.removeQuery(READY_TIME)
-                max_prepare_time.text = getString(R.string.slider_label, getString(R.string.slider_argument_any))
-            }
             max_prepare_time.text = getString(R.string.slider_label, value.toInt().toString())
         }
 
-        // Filter button
+        // Filter button - refreshes list according to filters
         filter_button.setOnClickListener {
-            // refreshes list according to filters
             viewModel.filterQuery.value = recipeFilterQuery
             viewModel.filtersVisible.value = false // close the fragment from activity
         }
     }
 
+    /**
+     * Updates filter chips with correct values.
+     */
     private fun updateChips() {
-        filter_chips.removeAllViews()
-        recipeFilterQuery.map.forEach { query ->
-            if (filters.contains(query.key)) {
-                query.value.forEach {
-                    val chip = Chip(requireContext()).apply {
-                        text = it
-                        isCloseIconVisible = true
-                        setOnCloseIconClickListener{
-                            recipeFilterQuery.removeQuery(query.key, (it as Chip).text.toString())
-                            filter_chips.removeView(it)
-                        }
+        filter_chips.removeAllViews() // resets
+        recipeFilterQuery.map.filter { filters.contains(it.key) }.forEach {
+            it.value.forEach { value ->
+                val chip = Chip(requireContext()).apply {
+                    text = value
+                    isCloseIconVisible = true
+                    setOnCloseIconClickListener { view ->
+                        recipeFilterQuery.removeQuery(it.key, value)
+                        filter_chips.removeView(view)
                     }
-                    filter_chips.addView(chip)
                 }
+                filter_chips.addView(chip)
             }
         }
     }
 
+    /**
+     * Creates option material dialog with given values.
+     *
+     * @param view button that triggers dialog
+     * @param dialogTitle title
+     * @param items list of options that dialog shows
+     * @param tag tag/name of parameter that is shown in the dialog for setting up filter value
+     */
     private fun setUpDialog(view: View, dialogTitle: Int, items: List<String>, tag: String) {
         view.setOnClickListener {
 

@@ -7,7 +7,11 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.kurnavova.foodapp.R
+import com.kurnavova.foodapp.utils.NetworkUtils
 
+/**
+ * Main activity with cards and random recipe.
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
         supportActionBar?.title = resources.getString(R.string.app_name) // set app name as title
+
+        if (!NetworkUtils.isConnected(application)) { // show dialog when there is no internet
+            NetworkUtils.showNetworkErrorDialog(this) { finish() }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -1,6 +1,6 @@
 <resources>
     <!-- Name of an app -->
-    <string name="app_name">Cook and shit</string>
+    <string name="app_name">Cookbook</string>
 
     <!-- Actions -->
     <!-- Filter action. -->
@@ -19,11 +19,14 @@
     <!-- Title of breakfast icon. -->
     <string name="meal_breakfast">Breakfast</string>
     <!-- Title of main meal icon. -->
-    <string name="meal_main_meal">Main meal</string>
+    <string name="meal_main_meal">Main course</string>
     <!-- Title of beverage icon. -->
     <string name="meal_beverage">Beverage</string>
     <!-- Title of snack icon. -->
     <string name="meal_snack">Snack</string>
+    <!-- Last chip in Cusines list title - triggers dialog with more options. -->
+    <string name="cuisines_list_more">More</string>
+
 
     <!-- Recipe list -->
     <!-- Message when there is empty list of recipes (no connection or nothing to show). -->
@@ -34,6 +37,12 @@
     <string name="detail_title_summary">Summary</string>
     <!-- Title of ingredients card in recipe detail. -->
     <string name="detail_title_ingredients">Ingredients</string>
+    <!-- Title of instructions card in recipe detail. -->
+    <string name="detail_title_instructions">Instructions</string>
+    <!-- Time of preparation in detail. %s is number of minutes. -->
+    <string name="detail_minutes">%s min</string>
+    <!-- Serving of meal in detail. %s is number of servings. -->
+    <string name="detail_servings">%s servings</string>
 
     <!-- Filter -->
     <!-- Title of meal type picker dialog and button. -->
@@ -56,6 +65,14 @@
     <string name="slider_label">Maximum prepare time: %s minutes</string>
     <!-- Argument of slider label when no value is picked. -->
     <string name="slider_argument_any">Any</string>
+
+    <!-- Network not connected dialog -->
+    <!-- Dialog title. -->
+    <string name="dialog_network_error_title">Network error</string>
+    <!-- Dialog text/message. -->
+    <string name="dialog_network_error_text">Please check your internet connection</string>
+    <!-- Positive button text. -->
+    <string name="dialog_network_error_ok">OK</string>
 
     <!-- Activity labels -->
     <string name="title_activity_main">MainActivity</string>

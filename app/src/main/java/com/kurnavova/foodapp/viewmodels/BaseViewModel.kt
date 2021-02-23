@@ -1,15 +1,18 @@
 package com.kurnavova.foodapp.viewmodels
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
+import com.kurnavova.foodapp.utils.NetworkUtils
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
  * Abstract class for ViewModel with implementation of exception handler.
  */
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    protected val coroutineExceptionHanlder = CoroutineExceptionHandler{ _, throwable ->
+    protected val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
         Log.e(TAG, "Cause: ${throwable.cause}, Message: ${throwable.message}")
     }
 

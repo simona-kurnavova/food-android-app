@@ -2,9 +2,11 @@ package com.kurnavova.foodapp.database
 
 import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.utils.RecipeFilterQuery
-import javax.inject.Inject
 
-class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao) {
+/**
+ * Repository for Recipes.
+ */
+class RecipeRepository(private val recipeDao: RecipeDao) {
 
     suspend fun getRecipe(id: String): Recipe =
         recipeDao.getRecipe(id)

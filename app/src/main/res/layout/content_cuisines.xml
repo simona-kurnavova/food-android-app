@@ -16,4 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.google.android.material.chip.Chip
+        android:id="@+id/more_cuisines_chip"
+        android:layout_width="wrap_content"
+        android:background="@color/colorOnPrimary"
+        android:layout_height="wrap_content"
+        android:text="@string/cuisines_list_more" />
+
 </LinearLayout>

@@ -1,30 +1,34 @@
 package com.kurnavova.foodapp.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.model.Recipe
+import com.kurnavova.foodapp.utils.NetworkUtils
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 /**
  * Activity representing recipe detail screen.
  */
-class DetailActivity : AppCompatActivity() {
+class RecipeDetailActivity : AppCompatActivity() {
 
     private val viewModel: RecipeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        viewModel.id.value = intent.extras?.getString(EXTRA_RECIPE_ID)
 
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
-        supportActionBar?.setDisplayShowTitleEnabled(false) // remove title
-
-        viewModel.id.value = intent.extras?.getString(EXTRA_RECIPE_ID)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
+        }
 
         viewModel.recipe.observe(this, Observer<Recipe> { data ->
             // Add image to toolbar, must be done from activity
@@ -34,6 +38,18 @@ class DetailActivity : AppCompatActivity() {
                     .into(recipe_image)
             }
         })
+
+        if (!NetworkUtils.isConnected(application)) {
+            NetworkUtils.showNetworkErrorDialog(this) { finish() }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

@@ -12,6 +12,7 @@ import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.kurnavova.foodapp.R
+import com.kurnavova.foodapp.utils.NetworkUtils
 import com.kurnavova.foodapp.utils.RecipeFilterQuery
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.QUERY
 import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
@@ -27,13 +28,20 @@ class RecipeListActivity : AppCompatActivity() {
         handleIntent(intent)
 
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
-        supportActionBar?.title = resources.getString(R.string.app_name)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = resources.getString(R.string.app_name)
+        }
 
         with(viewModel.filtersVisible) {
-            value = false
+            value = false // default
             observe(this@RecipeListActivity, Observer {
                 filter_container.visibility = if (it) VISIBLE else GONE
             })
+        }
+
+        if (!NetworkUtils.isConnected(application)) {
+            NetworkUtils.showNetworkErrorDialog(this) { finish() }
         }
     }
 
@@ -50,7 +58,7 @@ class RecipeListActivity : AppCompatActivity() {
                 viewModel.filterQuery.value = RecipeFilterQuery().apply { addQuery(QUERY, query) }
             }
         } else {
-            // intent to filter (+ search)s
+            // intent to filter
             Log.d(TAG, "Filtering")
             viewModel.filterQuery.value = RecipeFilterQuery().apply { addQueryFromIntent(intent) }
         }
@@ -71,6 +79,6 @@ class RecipeListActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TAG = "recipe_list"
+        const val TAG = "Recipe list"
     }
 }
