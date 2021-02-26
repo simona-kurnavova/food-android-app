@@ -13,7 +13,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  */
 object ApiClient {
     private const val BASE_URL = "https://api.spoonacular.com/"
-    const val API_KEY = "6c7dbbc863cb4cd79e58f03672170c04"
+    const val API_KEY = "a1785ee75385455dbfae0ae10841d2f4"
 
     val client: Retrofit by lazy { Retrofit.Builder()
         .baseUrl(BASE_URL)
