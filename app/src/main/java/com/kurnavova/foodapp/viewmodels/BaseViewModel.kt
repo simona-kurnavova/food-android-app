@@ -2,9 +2,7 @@ package com.kurnavova.foodapp.viewmodels
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.kurnavova.foodapp.utils.NetworkUtils
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**

@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kurnavova.foodapp.R
-import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.utils.NetworkUtils
 import com.kurnavova.foodapp.viewmodels.RecipeViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -30,7 +28,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
-        viewModel.recipe.observe(this, Observer<Recipe> { data ->
+        viewModel.recipe.observe(this, { data ->
             // Add image to toolbar, must be done from activity
             if (data.image != null && recipe_image != null) {
                 Glide.with(this)

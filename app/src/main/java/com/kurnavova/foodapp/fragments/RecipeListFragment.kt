@@ -44,7 +44,10 @@ class RecipeListFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = recipeListAdapter
         }
-        viewModel.recipes.observe(viewLifecycleOwner, Observer<List<Recipe>>{ data ->
+
+        empty_list.visibility = View.VISIBLE
+
+        viewModel.recipes.observe(viewLifecycleOwner, { data ->
             Log.v(TAG, "Update: $data")
             recipeListAdapter.submitList(data)
             empty_list.visibility = if (data.isNullOrEmpty()) View.VISIBLE else View.GONE

@@ -30,7 +30,7 @@
 
     <!-- Recipe list -->
     <!-- Message when there is empty list of recipes (no connection or nothing to show). -->
-    <string name="empty_list_message">Nothing to show, sorry!</string>
+    <string name="empty_list_message">Nothing to show, sorry (either there are no results for this search, or number of requests has been exceeded).</string>
 
     <!-- Recipe detail -->
     <!-- Title of summary card in recipe detail. -->

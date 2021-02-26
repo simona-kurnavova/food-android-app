@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -38,9 +40,11 @@ class MainFragment : Fragment() {
         setUpCuisineList()
         setUpMealList()
 
+
         viewModel.recipes.observe(viewLifecycleOwner, Observer<List<Recipe>> { data ->
             val recipe = data.first() // first and only in list
 
+            recipe_card.visibility = VISIBLE
             recipe_title.text = recipe.title
             recipe_time.text = getString(R.string.slider_label, recipe.readyInMinutes.toString())
 

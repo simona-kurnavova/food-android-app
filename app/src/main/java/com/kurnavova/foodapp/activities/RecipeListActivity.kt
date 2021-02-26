@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.kurnavova.foodapp.R
 import com.kurnavova.foodapp.utils.NetworkUtils
 import com.kurnavova.foodapp.utils.RecipeFilterQuery
@@ -30,12 +29,12 @@ class RecipeListActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            title = resources.getString(R.string.app_name)
+            setTitle(R.string.app_name)
         }
 
         with(viewModel.filtersVisible) {
             value = false // default
-            observe(this@RecipeListActivity, Observer {
+            observe(this@RecipeListActivity, {
                 filter_container.visibility = if (it) VISIBLE else GONE
             })
         }

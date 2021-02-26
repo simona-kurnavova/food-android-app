@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
-        supportActionBar?.title = resources.getString(R.string.app_name) // set app name as title
+        supportActionBar?.setTitle(R.string.app_name) // set app name as title
 
         if (!NetworkUtils.isConnected(application)) { // show dialog when there is no internet
             NetworkUtils.showNetworkErrorDialog(this) { finish() }

@@ -42,7 +42,7 @@ interface RecipeDao {
          * Number of maximum recipes that are returned after [searchRecipes]. Low number is chosen due to limited
          * number of requests.
          */
-        const val RESULT_COUNT_LIMIT = 10
+        const val RESULT_COUNT_LIMIT = 15
 
         /**
          * Number of random recipes returned after calling [getRandomRecipe].
