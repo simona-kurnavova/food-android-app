@@ -28,15 +28,15 @@ class RecipeDetailFragment: Fragment() {
         inflater.inflate(R.layout.fragment_recipe_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.recipe.observe(viewLifecycleOwner, Observer<Recipe>{ data ->
+        viewModel.recipe.observe(viewLifecycleOwner) { data ->
             Log.d(TAG, "Detail updated: $data")
-            recipe_name.text = data.title
+            recipe_name.text = data?.title
 
             //recipe_chips
-            recipe_time_chip.text = getString(R.string.detail_minutes, data.readyInMinutes.toString())
-            recipe_servings_chip.text = getString(R.string.detail_servings, data.servings.toString())
+            recipe_time_chip.text = getString(R.string.detail_minutes, data?.readyInMinutes.toString())
+            recipe_servings_chip.text = getString(R.string.detail_servings, data?.servings.toString())
 
-            data.diets.forEach { recipe_chips.addView(
+            data?.diets?.forEach { recipe_chips.addView(
                 Chip(requireContext()).apply {
                     text = it
                     setOnClickListener {
@@ -48,17 +48,18 @@ class RecipeDetailFragment: Fragment() {
             }
 
             // Strip html tags - some recipes are html, some plain text, this is easiest option
-            recipe_summary.text = HtmlCompat.fromHtml(data.summary.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-            recipe_instructions.text = HtmlCompat.fromHtml(data.instructions.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            recipe_summary.text = HtmlCompat.fromHtml(data?.summary.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            recipe_instructions.text = HtmlCompat.fromHtml(data?.instructions.toString(), HtmlCompat
+                .FROM_HTML_MODE_LEGACY)
 
-            data.ingredients.forEach {
+            data?.ingredients?.forEach {
                 val textView = TextView(requireContext()).apply {
                     text = it.originalString
                     setTextIsSelectable(true)
                 }
                 ingredients_layout.addView(textView)
             }
-        })
+        }
     }
 
     companion object {

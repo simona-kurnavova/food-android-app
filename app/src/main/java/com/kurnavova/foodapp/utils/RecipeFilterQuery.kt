@@ -83,24 +83,5 @@ class RecipeFilterQuery {
         const val READY_TIME = "maxReadyTime"
 
         val filters = listOf(QUERY, CUISINE, DIET, TYPE)
-
-        /**
-         * Lists of all possible values of parameters - used as lists for saving on requests.
-         */
-        val cuisines = listOf(
-            "African", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "European", "French",
-            "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korean", "Latin American",
-            "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
-        )
-
-        val mealTypes = listOf(
-            "main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage",
-            "sauce", "marinade", "fingerfood", "snack", "drink"
-        )
-
-        val diets = listOf(
-            "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal",
-            "Whole30"
-        )
     }
 }

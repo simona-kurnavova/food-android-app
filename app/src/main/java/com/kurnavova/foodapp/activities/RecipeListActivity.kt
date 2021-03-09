@@ -34,13 +34,13 @@ class RecipeListActivity : AppCompatActivity() {
 
         with(viewModel.filtersVisible) {
             value = false // default
-            observe(this@RecipeListActivity, {
+            observe(this@RecipeListActivity) {
                 filter_container.visibility = if (it) VISIBLE else GONE
-            })
+            }
         }
 
         if (!NetworkUtils.isConnected(application)) {
-            NetworkUtils.showNetworkErrorDialog(this) { finish() }
+            NetworkUtils.showNetworkErrorDialog(this.findViewById(android.R.id.content))
         }
     }
 
@@ -54,12 +54,12 @@ class RecipeListActivity : AppCompatActivity() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 Log.d(TAG, "Searching for $query")
-                viewModel.filterQuery.value = RecipeFilterQuery().apply { addQuery(QUERY, query) }
+                viewModel.loadRecipes(RecipeFilterQuery().apply { addQuery(QUERY, query) })
             }
         } else {
             // intent to filter
             Log.d(TAG, "Filtering")
-            viewModel.filterQuery.value = RecipeFilterQuery().apply { addQueryFromIntent(intent) }
+            viewModel.loadRecipes(RecipeFilterQuery().apply { addQueryFromIntent(intent) })
         }
     }
 

@@ -1,4 +1,4 @@
-package com.kurnavova.foodapp.database
+package com.kurnavova.foodapp.network
 
 import com.kurnavova.foodapp.model.RandomRecipeList
 import com.kurnavova.foodapp.model.Recipe

@@ -20,7 +20,7 @@ class RecipeDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        viewModel.id.value = intent.extras?.getString(EXTRA_RECIPE_ID)
+        viewModel.loadRecipe(intent.extras?.getString(EXTRA_RECIPE_ID))
 
         setSupportActionBar(findViewById(R.id.toolbar)) // set toolbar
         supportActionBar?.apply {
@@ -28,17 +28,17 @@ class RecipeDetailActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
-        viewModel.recipe.observe(this, { data ->
-            // Add image to toolbar, must be done from activity
-            if (data.image != null && recipe_image != null) {
-                Glide.with(this)
-                    .load(data.image)
-                    .into(recipe_image)
-            }
-        })
+        viewModel.recipe.observe(this) { data ->
+        // Add image to toolbar, must be done from activity
+        if (data?.image != null && recipe_image != null) {
+            Glide.with(this)
+                .load(data.image)
+                .into(recipe_image)
+        }
+    }
 
         if (!NetworkUtils.isConnected(application)) {
-            NetworkUtils.showNetworkErrorDialog(this) { finish() }
+            NetworkUtils.showNetworkErrorDialog(this.findViewById(android.R.id.content))
         }
     }
 

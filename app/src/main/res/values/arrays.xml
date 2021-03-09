@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lists of all possible values of parameters - used as lists for saving on requests. -->
+    <array name="cuisines">
+        <item>African</item>
+        <item>American</item>
+        <item>British</item>
+        <item>Cajun</item>
+        <item>Caribbean</item>
+        <item>Chinese</item>
+        <item>Eastern European</item>
+        <item>European</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>Indian</item>
+        <item>Irish</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Jewish</item>
+        <item>Korean</item>
+        <item>Latin American</item>
+        <item>Mediterranean</item>
+        <item>Mexican</item>
+        <item>Middle Eastern</item>
+        <item>Nordic</item>
+        <item>Southern</item>
+        <item>Spanish</item>
+        <item>Thai</item>
+        <item>Vietnamese</item>
+    </array>
+
+    <array name="diets">
+        <item>Ketogenic</item>
+        <item>Vegetarian</item>
+        <item>Lacto-Vegetarian</item>
+        <item>Ovo-Vegetarian</item>
+        <item>Vegan</item>
+        <item>Pescetarian</item>
+        <item>Paleo</item>
+        <item>Primal</item>
+        <item>Whole30</item>
+    </array>
+
+    <array name="meal_types">
+        <item>main course</item>
+        <item>side dish</item>
+        <item>dessert</item>
+        <item>appetizer</item>
+        <item>salad</item>
+        <item>bread</item>
+        <item>breakfast</item>
+        <item>soup</item>
+        <item>beverage</item>
+        <item>sauce</item>
+        <item>marinade</item>
+        <item>fingerfood</item>
+        <item>snack</item>
+        <item>drink</item>
+    </array>
+
+</resources>

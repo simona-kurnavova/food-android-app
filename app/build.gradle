@@ -21,7 +21,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -61,10 +62,6 @@ dependencies {
 
     // Okhttp
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
-
-    // Dagger
-    implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
-    kapt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:${GLIDE_VERSION}"

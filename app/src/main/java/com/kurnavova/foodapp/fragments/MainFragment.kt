@@ -21,7 +21,6 @@ import com.kurnavova.foodapp.activities.RecipeListActivity
 import com.kurnavova.foodapp.model.Recipe
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.CUISINE
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.TYPE
-import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.cuisines
 import com.kurnavova.foodapp.viewmodels.RandomRecipesViewModel
 import kotlinx.android.synthetic.main.content_cuisines.*
 import kotlinx.android.synthetic.main.content_meals.*
@@ -40,8 +39,7 @@ class MainFragment : Fragment() {
         setUpCuisineList()
         setUpMealList()
 
-
-        viewModel.recipes.observe(viewLifecycleOwner, Observer<List<Recipe>> { data ->
+        viewModel.recipes.observe(viewLifecycleOwner) { data ->
             val recipe = data.first() // first and only in list
 
             recipe_card.visibility = VISIBLE
@@ -59,7 +57,7 @@ class MainFragment : Fragment() {
                     putExtra(EXTRA_RECIPE_ID, recipe.id)
                 })
             }
-        })
+        }
     }
 
     /**
@@ -79,7 +77,7 @@ class MainFragment : Fragment() {
      * Sets up cuisine chips and "more" button.s
      */
     private fun setUpCuisineList() {
-        cuisines.toList().shuffled().take(CUISINE_CHIPS_COUNT).forEach {
+        resources.getStringArray(R.array.cuisines).toList().toList().shuffled().take(CUISINE_CHIPS_COUNT).forEach {
             val chip = Chip(requireContext()).apply {
                 text = it
                 setOnClickListener {
@@ -92,6 +90,7 @@ class MainFragment : Fragment() {
         }
 
         // "More" button - Creates dialog with all cuisine options
+        val cuisines = resources.getStringArray(R.array.cuisines).toList()
         more_cuisines_chip.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.cuisine)

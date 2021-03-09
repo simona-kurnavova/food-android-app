@@ -14,10 +14,7 @@ import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.CUISINE
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.DIET
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.READY_TIME
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.TYPE
-import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.cuisines
-import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.diets
 import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.filters
-import com.kurnavova.foodapp.utils.RecipeFilterQuery.Companion.mealTypes
 import com.kurnavova.foodapp.viewmodels.RecipeListViewModel
 import kotlinx.android.synthetic.main.fragment_filter.*
 
@@ -40,12 +37,12 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Setup filter according to already set/default values from viewmodel recipeFilterQuery instance
-        recipeFilterQuery.addQueries(viewModel.filterQuery.value?.map)
+        recipeFilterQuery.addQueries(viewModel.getFilterQuery()?.map)
 
         updateChips()
-        setUpDialog(meal_type_button, R.string.meal_type, mealTypes, TYPE)
-        setUpDialog(diet_button, R.string.diet, diets, DIET)
-        setUpDialog(cuisine_button, R.string.cuisine, cuisines, CUISINE)
+        setUpDialog(meal_type_button, R.string.meal_type, resources.getStringArray(R.array.meal_types).toList(), TYPE)
+        setUpDialog(diet_button, R.string.diet, resources.getStringArray(R.array.diets).toList(), DIET)
+        setUpDialog(cuisine_button, R.string.cuisine, resources.getStringArray(R.array.cuisines).toList(), CUISINE)
 
         // Slider config
         slider.addOnChangeListener { _, value, _ ->
@@ -55,7 +52,7 @@ class FilterFragment : Fragment() {
 
         // Filter button - refreshes list according to filters
         filter_button.setOnClickListener {
-            viewModel.filterQuery.value = recipeFilterQuery
+            viewModel.loadRecipes(recipeFilterQuery)
             viewModel.filtersVisible.value = false // close the fragment from activity
         }
     }
@@ -93,7 +90,7 @@ class FilterFragment : Fragment() {
 
             // filter out already chosen items to avoid duplicities
             val filteredItems = items.filter {
-                !recipeFilterQuery.map.containsKey(tag) || !recipeFilterQuery.map[tag]!!.contains(it)
+                !recipeFilterQuery.map.containsKey(tag) || recipeFilterQuery.map[tag]?.contains(it) == false
             }
 
             // Create dialog with options

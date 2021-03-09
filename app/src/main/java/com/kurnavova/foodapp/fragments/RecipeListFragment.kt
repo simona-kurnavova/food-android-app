@@ -47,11 +47,11 @@ class RecipeListFragment : Fragment() {
 
         empty_list.visibility = View.VISIBLE
 
-        viewModel.recipes.observe(viewLifecycleOwner, { data ->
+        viewModel.recipes.observe(viewLifecycleOwner) { data ->
             Log.v(TAG, "Update: $data")
             recipeListAdapter.submitList(data)
             empty_list.visibility = if (data.isNullOrEmpty()) View.VISIBLE else View.GONE
-        })
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 }

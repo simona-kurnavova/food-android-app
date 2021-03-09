@@ -69,8 +69,6 @@
     <!-- Network not connected dialog -->
     <!-- Dialog title. -->
     <string name="dialog_network_error_title">Network error</string>
-    <!-- Dialog text/message. -->
-    <string name="dialog_network_error_text">Please check your internet connection</string>
     <!-- Positive button text. -->
     <string name="dialog_network_error_ok">OK</string>
 

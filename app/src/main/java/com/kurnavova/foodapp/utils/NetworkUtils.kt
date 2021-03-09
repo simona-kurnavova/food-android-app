@@ -5,7 +5,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.os.Build
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import android.view.View
+import com.google.android.material.snackbar.Snackbar
 import com.kurnavova.foodapp.R
 
 /**
@@ -35,16 +36,10 @@ object NetworkUtils {
     }
 
     /**
-     * Triggers a "network error" dialog using given [context] and [cancelAction] that is called in any action
-     * performed in dialog - app doesn't allow to be used in offline mode.
+     * Triggers a "network error" snackbar using given [view].
      */
-    fun showNetworkErrorDialog(context: Context, cancelAction: () -> Unit) {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(R.string.dialog_network_error_title)
-            .setMessage(R.string.dialog_network_error_text)
-            .setOnCancelListener { cancelAction() }
-            .setPositiveButton(R.string.dialog_network_error_ok) { _, _ ->
-                cancelAction()
-            }.show()
+    fun showNetworkErrorDialog(view: View) {
+        Snackbar.make(view, R.string.dialog_network_error_title, Snackbar.LENGTH_SHORT)
+            .show()
     }
 }

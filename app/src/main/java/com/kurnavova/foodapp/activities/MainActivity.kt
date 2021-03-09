@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.kurnavova.foodapp.R
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setTitle(R.string.app_name) // set app name as title
 
         if (!NetworkUtils.isConnected(application)) { // show dialog when there is no internet
-            NetworkUtils.showNetworkErrorDialog(this) { finish() }
+            NetworkUtils.showNetworkErrorDialog(this.findViewById(android.R.id.content))
         }
     }
 
