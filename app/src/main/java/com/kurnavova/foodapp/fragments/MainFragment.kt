@@ -40,6 +40,7 @@ class MainFragment : Fragment() {
         setUpMealList()
 
         viewModel.recipes.observe(viewLifecycleOwner) { data ->
+            if (data.isEmpty()) return@observe
             val recipe = data.first() // first and only in list
 
             recipe_card.visibility = VISIBLE
